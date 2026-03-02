@@ -117,7 +117,7 @@ export default function HomePage() {
                   <span className="text-xs font-medium tracking-widest uppercase text-secondary">Markt-Analyse 2024</span>
                 </div>
                 
-                <h1 className="font-heading text-5xl md:text-7xl lg:text-9xl leading-[0.9] tracking-tight text-foreground mb-8">
+                <h1 className="font-heading text-4xl md:text-5xl lg:text-7xl leading-[0.9] tracking-tight text-foreground mb-8">
                   Während Sie noch <br />
                   <span className="text-secondary/40">experimentieren</span>, <br />
                   automatisiert Ihr <br />
@@ -176,7 +176,7 @@ export default function HomePage() {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  className="font-heading text-4xl md:text-6xl leading-tight mb-8"
+                  className="font-heading text-3xl md:text-5xl leading-tight mb-8"
                 >
                   KI-Nutzung ist kein <span className="text-muted-grey">Wettbewerbsvorteil</span>.
                   <br />
@@ -241,7 +241,7 @@ export default function HomePage() {
         <div className="w-full max-w-[120rem] mx-auto px-6 md:px-12">
           
           <div className="mb-24 border-b border-foreground/10 pb-12">
-            <h2 className="font-heading text-4xl md:text-7xl text-foreground mb-6">
+            <h2 className="font-heading text-3xl md:text-5xl text-foreground mb-6">
               Unser Transformationsmodell
             </h2>
             <p className="font-paragraph text-xl text-secondary max-w-2xl">
@@ -267,7 +267,7 @@ export default function HomePage() {
         <div className="w-full max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
             <div>
-              <h2 className="font-heading text-4xl md:text-6xl text-foreground mb-6">
+              <h2 className="font-heading text-3xl md:text-5xl text-foreground mb-6">
                 Konkrete Anwendungsfälle
               </h2>
               <p className="font-paragraph text-xl text-secondary max-w-xl">
@@ -292,7 +292,7 @@ export default function HomePage() {
         <div className="w-full max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-4">
-              <h2 className="font-heading text-4xl md:text-6xl mb-8">
+              <h2 className="font-heading text-3xl md:text-5xl mb-8">
                 Messbare <br />
                 <span className="text-muted-grey">Ergebnisse</span>
               </h2>
@@ -339,7 +339,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
             <div className="relative">
               <div className="sticky top-32">
-                <h2 className="font-heading text-4xl md:text-7xl text-foreground mb-12">
+                <h2 className="font-heading text-3xl md:text-5xl text-foreground mb-12">
                   Warum wir
                 </h2>
                 <div className="aspect-[4/5] w-full relative overflow-hidden bg-secondary/5">
@@ -444,6 +444,17 @@ export default function HomePage() {
 function TransformationPhaseCard({ phase, index }: { phase: TransformationsmodellPhasen; index: number }) {
   const isEven = index % 2 === 0;
   
+  // Map generated images to each phase
+  const phaseImages: Record<number, string> = {
+    1: "https://static.wixstatic.com/media/8d8674_4d06f7de22f24b13b1add0dfd5dcd690~mv2.png?originWidth=768&originHeight=448",
+    2: "https://static.wixstatic.com/media/8d8674_8497cf99486b4959afbb4f6c055c8129~mv2.png?originWidth=768&originHeight=448",
+    3: "https://static.wixstatic.com/media/8d8674_0e985f21a32246c18680f4de47be0da2~mv2.png?originWidth=768&originHeight=448",
+    4: "https://static.wixstatic.com/media/8d8674_13aa08f66b7d4e11841708ac79b8af45~mv2.png?originWidth=768&originHeight=448",
+    5: "https://static.wixstatic.com/media/8d8674_c5575cfa35604dd2abc67e9ba03eecac~mv2.png?originWidth=768&originHeight=448",
+  };
+  
+  const displayImage = phaseImages[phase.stepNumber || 0] || phase.phaseImage || "https://static.wixstatic.com/media/8d8674_827fecb54d4145fc9de22b99cede1b45~mv2.png?originWidth=768&originHeight=448";
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -483,7 +494,7 @@ function TransformationPhaseCard({ phase, index }: { phase: Transformationsmodel
       <div className={`flex-1 ${isEven ? 'md:pl-12' : 'md:pr-12'}`}>
         <div className="aspect-video w-full bg-secondary/10 relative overflow-hidden group">
           <Image
-            src={phase.phaseImage || "https://static.wixstatic.com/media/8d8674_827fecb54d4145fc9de22b99cede1b45~mv2.png?originWidth=768&originHeight=448"}
+            src={displayImage}
             alt={phase.phaseName || "Phase"}
             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
           />
@@ -502,6 +513,18 @@ function TransformationPhaseCard({ phase, index }: { phase: Transformationsmodel
 }
 
 function UseCaseCard({ useCase, index }: { useCase: Anwendungsflle; index: number }) {
+  // Map generated images to use cases
+  const useCaseImages: Record<number, string> = {
+    0: "https://static.wixstatic.com/media/8d8674_2b0472a3233f4d3a92438c3b733cd85d~mv2.png?originWidth=768&originHeight=576",
+    1: "https://static.wixstatic.com/media/8d8674_ab9541c31ace4558b58270497f289abb~mv2.png?originWidth=768&originHeight=576",
+    2: "https://static.wixstatic.com/media/8d8674_549671eddb8549eeb6ae3610c8bf556b~mv2.png?originWidth=768&originHeight=576",
+    3: "https://static.wixstatic.com/media/8d8674_a61cb0730ee84da59db36dad478766b6~mv2.png?originWidth=768&originHeight=576",
+    4: "https://static.wixstatic.com/media/8d8674_3f56a81be83d4ac3b42d24edba8d80b2~mv2.png?originWidth=768&originHeight=576",
+    5: "https://static.wixstatic.com/media/8d8674_e7f5e9cd36fb441ba4737b04dd6330a7~mv2.png?originWidth=768&originHeight=576",
+  };
+  
+  const displayImage = useCaseImages[index] || useCase.useCaseImage || "https://static.wixstatic.com/media/8d8674_22fad823ace84560a271acba03610551~mv2.png?originWidth=768&originHeight=576";
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -512,7 +535,7 @@ function UseCaseCard({ useCase, index }: { useCase: Anwendungsflle; index: numbe
     >
       <div className="mb-8 aspect-[4/3] overflow-hidden bg-secondary/10 relative">
         <Image
-          src={useCase.useCaseImage || "https://static.wixstatic.com/media/8d8674_22fad823ace84560a271acba03610551~mv2.png?originWidth=768&originHeight=576"}
+          src={displayImage}
           alt={useCase.useCaseTitle || 'Use case'}
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
         />
