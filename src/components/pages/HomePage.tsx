@@ -344,7 +344,7 @@ export default function HomePage() {
                 </h2>
                 <div className="aspect-[4/5] w-full relative overflow-hidden bg-secondary/5">
                    <Image 
-                    src="https://static.wixstatic.com/media/12d367_71ebdd7141d041e4be3d91d80d4578dd~mv2.png?id=1"
+                    src="https://static.wixstatic.com/media/8d8674_0062074055a643cda9db8496a6896a22~mv2.png?originWidth=768&originHeight=960"
                     alt="Strategic Planning"
                     className="w-full h-full object-cover grayscale contrast-125"
                    />
@@ -483,7 +483,7 @@ function TransformationPhaseCard({ phase, index }: { phase: Transformationsmodel
       <div className={`flex-1 ${isEven ? 'md:pl-12' : 'md:pr-12'}`}>
         <div className="aspect-video w-full bg-secondary/10 relative overflow-hidden group">
           <Image
-            src={phase.phaseImage || "https://static.wixstatic.com/media/12d367_71ebdd7141d041e4be3d91d80d4578dd~mv2.png?id=2"}
+            src={phase.phaseImage || "https://static.wixstatic.com/media/8d8674_827fecb54d4145fc9de22b99cede1b45~mv2.png?originWidth=768&originHeight=448"}
             alt={phase.phaseName || "Phase"}
             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
           />
@@ -512,7 +512,7 @@ function UseCaseCard({ useCase, index }: { useCase: Anwendungsflle; index: numbe
     >
       <div className="mb-8 aspect-[4/3] overflow-hidden bg-secondary/10 relative">
         <Image
-          src={useCase.useCaseImage || "https://static.wixstatic.com/media/12d367_71ebdd7141d041e4be3d91d80d4578dd~mv2.png?id=3"}
+          src={useCase.useCaseImage || "https://static.wixstatic.com/media/8d8674_22fad823ace84560a271acba03610551~mv2.png?originWidth=768&originHeight=576"}
           alt={useCase.useCaseTitle || 'Use case'}
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
         />
