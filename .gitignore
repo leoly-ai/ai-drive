@@ -1,5 +1,5 @@
 # Logs
-logs
+logs/
 *.log
 !codegen-machine.log
 npm-debug.log*
@@ -7,26 +7,28 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Misc
+# OS / editor
 .DS_Store
-out
+.idea/
 
-# build output
-# generated types
-dist
+# Build output
+dist/
 .astro/
-.wix
+out/
+.wix/
+.vercel/
+coverage/
 
-# dependencies
-node_modules
+# Dependencies
+node_modules/
 
-# environment variables
+# Environment variables
 .env
 .env.production
 .env.local
+.env*.local
 
-# jetbrains setting folder
-.idea/
+# Project-specific
 .messages.json
 docs/*
 
@@ -41,3 +43,4 @@ docs/*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.vercel

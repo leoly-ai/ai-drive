@@ -1,16 +1,22 @@
 // @ts-check
+import { readFileSync } from "node:fs";
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
+import vercel from "@astrojs/vercel";
 import cloudProviderFetchAdapter from "@wix/cloud-provider-fetch-adapter";
-import wix from "@wix/astro";
-import monitoring from "@wix/monitoring-astro";
 import react from "@astrojs/react";
 import sourceAttrsPlugin from "@wix/babel-plugin-jsx-source-attrs";
 import dynamicDataPlugin from "@wix/babel-plugin-jsx-dynamic-data";
 import customErrorOverlayPlugin from "./vite-error-overlay-plugin.js";
 import postcssPseudoToData from "@wix/postcss-pseudo-to-data";
 
+const wixConfig = JSON.parse(readFileSync(new URL("./wix.config.json", import.meta.url), "utf8"));
 const isBuild = process.env.NODE_ENV == "production";
+const isVercel = process.env.VERCEL === "1" || process.env.VERCEL === "true";
+
+if (!process.env.WIX_CLIENT_ID && wixConfig.appId) {
+  process.env.WIX_CLIENT_ID = wixConfig.appId;
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,15 +33,16 @@ export default defineConfig({
               loadFramewire(true);`
             );
           }
+
+          injectScript(
+            "before-hydration",
+            `import { setupWixClient } from "/src/lib/wix-client-setup.ts";
+            await setupWixClient({ clientId: ${JSON.stringify(wixConfig.appId)} });`
+          );
         },
       },
     },
     tailwind(),
-    wix({
-      htmlEmbeds: isBuild,
-      auth: true,
-    }),
-    ...(isBuild ? [monitoring()] : []),
     react(isBuild ? {} : {
       babel: { plugins: [sourceAttrsPlugin, dynamicDataPlugin] },
     }),
@@ -49,13 +56,19 @@ export default defineConfig({
         'react-dom',
         'zustand',
         'framer-motion',
-        'date-fns',
         'clsx',
         'class-variance-authority',
         'tailwind-merge',
         '@radix-ui/*',
-        '@wix/*',
-        'zod',
+        '@wix/sdk',
+        '@wix/sdk-runtime/context',
+        '@wix/headless-site',
+        '@wix/data',
+        '@wix/ecom',
+        '@wix/image-kit',
+        '@wix/members',
+        '@wix/redirects',
+        '@wix/services-manager-react',
       ],
     },
     css: !isBuild ? {
@@ -66,7 +79,9 @@ export default defineConfig({
       },
     } : undefined,
   },
-  ...(isBuild && { adapter: cloudProviderFetchAdapter({}) }),
+  ...(isBuild && {
+    adapter: isVercel ? vercel() : cloudProviderFetchAdapter({}),
+  }),
   devToolbar: {
     enabled: false,
   },
