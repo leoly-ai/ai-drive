@@ -6,6 +6,7 @@ import { BaseCrudService } from '@/integrations';
 import type { Alleinstellungsmerkmale, Anwendungsflle, MessbareErgebnisse, TransformationsmodellPhasen } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ExecutiveAuditSection from '@/components/ExecutiveAuditSection';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 
@@ -31,6 +32,7 @@ const GridBackground = () => (
 // --- Main Component ---
 
 export default function HomePage() {
+  const contactEmail = 'contact@leoly.ai';
   const [transformationPhases, setTransformationPhases] = useState<TransformationsmodellPhasen[]>([]);
   const [useCases, setUseCases] = useState<Anwendungsflle[]>([]);
   const [results, setResults] = useState<MessbareErgebnisse[]>([]);
@@ -65,9 +67,9 @@ export default function HomePage() {
     }
   };
 
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    contactSection?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: 'smooth' });
   };
 
   // --- Loading State ---
@@ -137,14 +139,14 @@ export default function HomePage() {
                 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
-                    onClick={scrollToContact}
+                    onClick={() => scrollToSection('audit')}
                     className="bg-foreground text-background hover:bg-secondary hover:text-white px-8 py-8 text-lg rounded-none border border-transparent transition-all duration-300 group"
                   >
                     KI-Audit starten
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                   <Button
-                    onClick={scrollToContact}
+                    onClick={() => scrollToSection('contact')}
                     variant="outline"
                     className="border-foreground text-foreground hover:bg-foreground hover:text-background px-8 py-8 text-lg rounded-none transition-all duration-300"
                   >
@@ -237,7 +239,7 @@ export default function HomePage() {
       </section>
 
       {/* --- TRANSFORMATION MODEL (STICKY STEPS) --- */}
-      <section className="w-full bg-background py-32 relative">
+      <section id="transformation" className="w-full bg-background py-32 relative">
         <div className="w-full max-w-[120rem] mx-auto px-6 md:px-12">
           
           <div className="mb-24 border-b border-foreground/10 pb-12">
@@ -263,7 +265,7 @@ export default function HomePage() {
       </section>
 
       {/* --- USE CASES (MAGAZINE GRID) --- */}
-      <section className="w-full bg-secondary/5 py-32 border-y border-muted-grey/30">
+      <section id="use-cases" className="w-full bg-secondary/5 py-32 border-y border-muted-grey/30">
         <div className="w-full max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
             <div>
@@ -274,7 +276,7 @@ export default function HomePage() {
                 Von der Automatisierung bis zur strategischen Wertschöpfung. Echte Lösungen für echte Probleme.
               </p>
             </div>
-            <Button variant="outline" className="rounded-none border-foreground px-8 py-6" onClick={scrollToContact}>
+            <Button variant="outline" className="rounded-none border-foreground px-8 py-6" onClick={() => scrollToSection('contact')}>
               Alle Cases ansehen <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </div>
@@ -288,7 +290,7 @@ export default function HomePage() {
       </section>
 
       {/* --- MEASURABLE RESULTS (TICKER STYLE) --- */}
-      <section className="w-full bg-foreground text-background py-32 overflow-hidden">
+      <section id="results" className="w-full bg-foreground text-background py-32 overflow-hidden">
         <div className="w-full max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-4">
@@ -392,6 +394,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      <ExecutiveAuditSection
+        contactEmail={contactEmail}
+        onRequestConsultation={() => scrollToSection('contact')}
+      />
+
       {/* --- FINAL CTA --- */}
       <section id="contact" className="w-full bg-foreground text-background py-32 md:py-48 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
@@ -407,27 +414,26 @@ export default function HomePage() {
             className="space-y-12"
           >
             <h2 className="font-heading text-5xl md:text-8xl leading-tight">
-              In 14 Tagen zu Ihrer <br />
+              Vom Score zur <br />
               <span className="text-muted-grey">konkreten KI-Roadmap.</span>
             </h2>
             
             <p className="font-paragraph text-xl md:text-2xl text-muted-grey max-w-3xl mx-auto">
-              Starten Sie mit einem strukturierten KI-Audit. Keine Verpflichtungen, nur Klarheit.
+              Wir ordnen Ihr Ergebnis in einem Executive-Gespräch ein und zeigen, wo strategischer ROI zuerst entsteht.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
-              <Button
-                onClick={scrollToContact}
-                className="bg-background text-foreground hover:bg-white/90 px-10 py-8 text-xl rounded-none font-semibold min-w-[240px]"
-              >
-                KI-Audit starten
+              <Button asChild className="bg-background text-foreground hover:bg-white/90 px-10 py-8 text-xl rounded-none font-semibold min-w-[240px]">
+                <a href={`mailto:${contactEmail}`}>
+                  Ergebnis besprechen
+                </a>
               </Button>
               <Button
-                onClick={scrollToContact}
+                onClick={() => scrollToSection('audit')}
                 variant="outline"
                 className="border-white/30 text-white hover:bg-white/10 px-10 py-8 text-xl rounded-none font-semibold min-w-[240px]"
               >
-                Kontakt aufnehmen
+                Audit erneut ansehen
               </Button>
             </div>
           </motion.div>

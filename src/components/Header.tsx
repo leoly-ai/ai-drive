@@ -16,6 +16,7 @@ export default function Header() {
     { label: 'Transformationsmodell', id: 'transformation' },
     { label: 'Anwendungsfälle', id: 'use-cases' },
     { label: 'Ergebnisse', id: 'results' },
+    { label: 'KI-Audit', id: 'audit' },
     { label: 'Kontakt', id: 'contact' },
   ];
 
@@ -58,7 +59,7 @@ export default function Header() {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <Button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => scrollToSection('audit')}
                 className="bg-primary text-primary-foreground hover:bg-secondary px-5 py-2 text-sm font-semibold rounded"
               >
                 KI-Audit starten
@@ -99,7 +100,7 @@ export default function Header() {
             ))}
             
             <Button
-              onClick={() => scrollToSection('contact')}
+              onClick={() => scrollToSection('audit')}
               className="w-full bg-primary text-primary-foreground hover:bg-secondary px-5 py-3 text-base font-semibold rounded mt-4"
             >
               KI-Audit starten

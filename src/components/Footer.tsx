@@ -59,6 +59,12 @@ export default function Footer() {
                 Ergebnisse
               </button>
               <button
+                onClick={() => scrollToSection('audit')}
+                className="block font-paragraph text-sm text-secondary hover:text-foreground transition-colors"
+              >
+                KI-Audit
+              </button>
+              <button
                 onClick={() => scrollToSection('contact')}
                 className="block font-paragraph text-sm text-secondary hover:text-foreground transition-colors"
               >
@@ -79,9 +85,12 @@ export default function Footer() {
               Kontakt
             </h4>
             <div className="space-y-3">
-              <p className="font-paragraph text-sm text-secondary">
-                info@ai-transformation.de
-              </p>
+              <a
+                href="mailto:contact@leoly.ai"
+                className="block font-paragraph text-sm text-secondary hover:text-foreground transition-colors"
+              >
+                contact@leoly.ai
+              </a>
               <p className="font-paragraph text-sm text-secondary">
                 Tel: +49 (0) 123 456 789
               </p>
